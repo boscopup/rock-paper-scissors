@@ -1,7 +1,3 @@
-// Initialize global integers computerScore and humanScore to 0
-let computerScore = 0;
-let humanScore = 0;
-
 /**
  * Function: getComputerChoice
  * Params: None
@@ -68,44 +64,7 @@ function getHumanChoice() {
     return choice;
 }
 
-/**
- * Function playRound
- * Params: string computerChoice, string humanChoice
- * Returns: Win/Lose/Tie message
- * 
- * Updates the global computerChoice or humanChoice variables.
- * 
- * Rock beats scissors
- * Paper beats rock
- * Scissors beats paper
- * 
- */
-function playRound(computerChoice, humanChoice) {
-    // If they are the same, the game is a tie
-    if (computerChoice == humanChoice) {
-        // Return a tied message
-        return createWinLoseTieMessage("tie", computerChoice, humanChoice);
-    }
 
-    // if computerChoice is rock and humanChoice is scissors or
-    //    computerChoice is paper and humanChoice is rock or
-    //    comoputerChoice is scissors and humanChoice is paper
-    if (((computerChoice == "rock") && (humanChoice == "scissors")) ||
-        ((computerChoice == "paper") && (humanChoice == "rock")) ||
-        ((computerChoice == "scissors") && (humanChoice == "paper"))) {
-        // Increment computerScore
-        computerScore++;
-
-        // Return computer wins message
-        return createWinLoseTieMessage("lose", computerChoice, humanChoice);
-    } else {
-    // Else
-        // Increment humanScore
-        humanScore++;
-        // Return human wins message
-        return createWinLoseTieMessage("win", humanChoice, computerChoice);
-    }
-}
 
 /**
  * function createWinLoseTieMessage
@@ -145,4 +104,84 @@ function createWinLoseTieMessage(result, winner, loser) {
 function capitalize(word) {
     // Convert the first letter to uppercase and concatenate the rest of the word to that
     return (word.charAt(0).toUpperCase() + word.slice(1));
+}
+
+/**
+ * function playGame
+ * Params: None
+ * Returns: Nothing 
+ */
+function playGame() {
+    /**
+     * Function playRound, nested function inside playGame
+     * Params: string computerChoice, string humanChoice
+     * Returns: Win/Lose/Tie message
+     * 
+     * Updates the global computerChoice or humanChoice variables.
+     * 
+     * Rock beats scissors
+     * Paper beats rock
+     * Scissors beats paper
+     * 
+     */
+    function playRound(computerChoice, humanChoice) {
+        // If they are the same, the game is a tie
+        if (computerChoice == humanChoice) {
+            // Return a tied message
+            return createWinLoseTieMessage("tie", computerChoice, humanChoice);
+        }
+
+        // if computerChoice is rock and humanChoice is scissors or
+        //    computerChoice is paper and humanChoice is rock or
+        //    comoputerChoice is scissors and humanChoice is paper
+        if (((computerChoice == "rock") && (humanChoice == "scissors")) ||
+            ((computerChoice == "paper") && (humanChoice == "rock")) ||
+            ((computerChoice == "scissors") && (humanChoice == "paper"))) {
+            // Increment computerScore
+            computerScore++;
+
+            // Return computer wins message
+            return createWinLoseTieMessage("lose", computerChoice, humanChoice);
+        } else {
+        // Else
+            // Increment humanScore
+            humanScore++;
+            // Return human wins message
+            return createWinLoseTieMessage("win", humanChoice, computerChoice);
+        }
+    }
+    /** END playRound function */
+
+    // Initialize integers computerScore and humanScore to 0
+    let computerScore = 0;
+    let humanScore = 0;
+    // Initialize strings computerChoice and humanChoice to ""
+    let computerChoice = "";
+    let humanChoice = "";
+
+    // Loop for 5 times
+    for (let i = 1; i <= 5; i++) {
+        // Get computerChoice
+        computerChoice = getComputerChoice();
+
+        // Get humanChoice
+        humanChoice = getHumanChoice();
+
+        // Call playRound with computerChoice and humanChoice
+        console.log(playRound(computerChoice, humanChoice));
+    }
+    // Compare computerScore and humanScore and declare winner of game
+    let message = "";
+    if (computerScore > humanScore) {
+        message = `Computer wins! Final score ${computerScore} to ${humanScore}.`;
+    } else if (computerScore < humanScore) {
+        message = `You win! Final score ${humanScore} to ${computerScore}.`;
+    } else {
+        message = `You tied! Finall score ${computerScore} to ${humanScore}`;
+    }
+
+    // Print message
+    console.log(message);
+
+    return;
 }
