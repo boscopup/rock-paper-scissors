@@ -1,3 +1,7 @@
+// Initialize global integers computerScore and humanScore to 0
+let computerScore = 0;
+let humanScore = 0;
+
 /**
  * Function: getComputerChoice
  * Params: None
