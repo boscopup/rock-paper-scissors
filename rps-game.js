@@ -152,36 +152,32 @@ function playGame() {
         // If they are the same, the game is a tie
         if (computerChoice == humanChoice) {
             handleMessage(createWinLoseTieMessage("tie", computerChoice, humanChoice));
-            return;
+        } else {
+            // If computer wins, send a "lose" message, since the human loses
+            // Otherwise, the human wins, so send a "win" message.
+            if (((computerChoice == "rock") && (humanChoice == "scissors")) ||
+                ((computerChoice == "paper") && (humanChoice == "rock")) ||
+                ((computerChoice == "scissors") && (humanChoice == "paper"))) {
+                computerScore++;
+                handleMessage(createWinLoseTieMessage("lose", computerChoice, humanChoice));
+            } else {
+                humanScore++;
+                handleMessage(createWinLoseTieMessage("win", humanChoice, computerChoice));
+            }
         }
 
-        // If computer wins, send a "lose" message, since the human loses
-        // Otherwise, the human wins, so send a "win" message.
-        if (((computerChoice == "rock") && (humanChoice == "scissors")) ||
-            ((computerChoice == "paper") && (humanChoice == "rock")) ||
-            ((computerChoice == "scissors") && (humanChoice == "paper"))) {
-            computerScore++;
-            handleMessage(createWinLoseTieMessage("lose", computerChoice, humanChoice));
-            return;
-        } else {
-            humanScore++;
-            handleMessage(createWinLoseTieMessage("win", humanChoice, computerChoice));
-            return;
+        if (computerScore == 5 || humanScore == 5) {
+            const resultDiv = document.createElement("div");
+            resultDiv.textContent = getFinalResultsMessage(computerScore, humanScore);
+            container.replaceChildren(resultDiv);
         }
+        return;
     }
     /** END playRound function */
 
 
 /*
-    // Compare computerScore and humanScore and declare winner of game
-    let message = "";
-    if (computerScore > humanScore) {
-        message = `Computer wins! Final score ${computerScore} to ${humanScore}.`;
-    } else if (computerScore < humanScore) {
-        message = `You win! Final score ${humanScore} to ${computerScore}.`;
-    } else {
-        message = `You tied! Final score ${computerScore} to ${humanScore}`;
-    }
+
 
     // Print message
     console.log(message);
@@ -197,4 +193,23 @@ function playGame() {
 function handleMessage(message) {
     // TODO: Change to display on screen
     console.log(message);
+}
+
+/**
+ * Function: getFinalResultsMessage
+ * Params: number computerScore, number humanScore
+ * Returns: string message
+ */
+function getFinalResultsMessage(computerScore, humanScore) {
+    // Compare computerScore and humanScore and declare winner of game
+    let message = "";
+    if (computerScore > humanScore) {
+        message = `Computer wins! Final score ${computerScore} to ${humanScore}.`;
+    } else if (computerScore < humanScore) {
+        message = `You win! Final score ${humanScore} to ${computerScore}.`;
+    } else {
+        message = `You tied! Final score ${computerScore} to ${humanScore}`;
+    }
+
+    return message;
 }
