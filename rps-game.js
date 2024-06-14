@@ -77,7 +77,7 @@ function capitalize(word) {
 function playGame() {
     let computerScore = 0;
     let humanScore = 0;
-    
+
     const container = document.querySelector("div");
 
     // Make sure div is empty at the start of the game. This is
@@ -147,7 +147,12 @@ function playGame() {
         if (computerScore == 5 || humanScore == 5) {
             const resultDiv = document.createElement("div");
             resultDiv.textContent = getFinalResultsMessage(computerScore, humanScore);
-            container.replaceChildren(resultDiv);
+
+            const newGameButton = document.createElement("button");
+            newGameButton.textContent = "New Game";
+            newGameButton.addEventListener("click", playGame);
+
+            container.replaceChildren(resultDiv, newGameButton);
         }
         return;
     }
