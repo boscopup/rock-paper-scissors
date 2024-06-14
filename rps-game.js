@@ -103,6 +103,30 @@ function capitalize(word) {
  * Returns: Nothing 
  */
 function playGame() {
+    // Create buttons for player to select "Rock", "Paper", or "Scissors"
+    const body = document.querySelector("body");
+    const container = document.createElement("div");
+    const rockButton = document.createElement("button");
+    const paperButton = document.createElement("button");
+    const scissorsButton = document.createElement("button");
+
+    rockButton.textContent = "Rock";
+    paperButton.textContent = "Paper";
+    scissorsButton.textContent = "Scissors";
+
+    container.appendChild(rockButton);
+    container.appendChild(paperButton);
+    container.appendChild(scissorsButton);
+    body.appendChild(container);
+
+    // Add event listener on buttons to call playRound with button choice
+    // Add a div for displaying results
+    // Display running score
+    // Announce winner once one player reaches 5 points
+
+    let computerScore = 0;
+    let humanScore = 0;
+
     /**
      * Function: playRound, nested function inside playGame
      * Params: string computerChoice, string humanChoice
@@ -116,6 +140,7 @@ function playGame() {
      * 
      */
     function playRound(computerChoice, humanChoice) {
+        // TODO: Move computerChoice into this function
         // If they are the same, the game is a tie
         if (computerChoice == humanChoice) {
             return createWinLoseTieMessage("tie", computerChoice, humanChoice);
@@ -135,19 +160,8 @@ function playGame() {
     }
     /** END playRound function */
 
-    let computerScore = 0;
-    let humanScore = 0;
 
-    let computerChoice = "";
-    let humanChoice = "";
-
-    // Loop for 5 times
-    for (let i = 1; i <= 5; i++) {
-        computerChoice = getComputerChoice();
-        humanChoice = getHumanChoice();
-        console.log(playRound(computerChoice, humanChoice));
-    }
-
+/*
     // Compare computerScore and humanScore and declare winner of game
     let message = "";
     if (computerScore > humanScore) {
@@ -160,6 +174,6 @@ function playGame() {
 
     // Print message
     console.log(message);
-
+*/
     return;
 }
