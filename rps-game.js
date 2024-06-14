@@ -75,6 +75,9 @@ function capitalize(word) {
  * Returns: Nothing 
  */
 function playGame() {
+    let computerScore = 0;
+    let humanScore = 0;
+    
     const container = document.querySelector("div");
 
     // Make sure div is empty at the start of the game. This is
@@ -102,13 +105,6 @@ function playGame() {
     rockButton.addEventListener("click", playRound);
     paperButton.addEventListener("click", playRound);
     scissorsButton.addEventListener("click", playRound);
-
-    // Add a div for displaying results
-    // Display running score
-    // Announce winner once one player reaches 5 points
-
-    let computerScore = 0;
-    let humanScore = 0;
 
     // Initialize score bar
     setScores();
