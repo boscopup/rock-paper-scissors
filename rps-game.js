@@ -120,6 +120,10 @@ function playGame() {
     body.appendChild(container);
 
     // Add event listener on buttons to call playRound with button choice
+    rockButton.addEventListener("click", playRound);
+    paperButton.addEventListener("click", playRound);
+    scissorsButton.addEventListener("click", playRound);
+
     // Add a div for displaying results
     // Display running score
     // Announce winner once one player reaches 5 points
@@ -129,8 +133,8 @@ function playGame() {
 
     /**
      * Function: playRound, nested function inside playGame
-     * Params: string computerChoice, string humanChoice
-     * Returns: Win/Lose/Tie message
+     * Params: event
+     * Returns: nothing
      * 
      * Updates the computerChoice or humanChoice variables.
      * 
@@ -139,11 +143,16 @@ function playGame() {
      * Scissors beats paper
      * 
      */
-    function playRound(computerChoice, humanChoice) {
-        // TODO: Move computerChoice into this function
+    function playRound(e) {
+        let humanChoice = e.target.textContent.toLowerCase();
+        console.log(humanChoice);
+
+        let computerChoice = getComputerChoice();
+
         // If they are the same, the game is a tie
         if (computerChoice == humanChoice) {
-            return createWinLoseTieMessage("tie", computerChoice, humanChoice);
+            handleMessage(createWinLoseTieMessage("tie", computerChoice, humanChoice));
+            return;
         }
 
         // If computer wins, send a "lose" message, since the human loses
@@ -152,10 +161,12 @@ function playGame() {
             ((computerChoice == "paper") && (humanChoice == "rock")) ||
             ((computerChoice == "scissors") && (humanChoice == "paper"))) {
             computerScore++;
-            return createWinLoseTieMessage("lose", computerChoice, humanChoice);
+            handleMessage(createWinLoseTieMessage("lose", computerChoice, humanChoice));
+            return;
         } else {
             humanScore++;
-            return createWinLoseTieMessage("win", humanChoice, computerChoice);
+            handleMessage(createWinLoseTieMessage("win", humanChoice, computerChoice));
+            return;
         }
     }
     /** END playRound function */
@@ -169,11 +180,21 @@ function playGame() {
     } else if (computerScore < humanScore) {
         message = `You win! Final score ${humanScore} to ${computerScore}.`;
     } else {
-        message = `You tied! Finall score ${computerScore} to ${humanScore}`;
+        message = `You tied! Final score ${computerScore} to ${humanScore}`;
     }
 
     // Print message
     console.log(message);
 */
     return;
+}
+
+/**
+ * Function: handleMessage
+ * Params: message - text to be displayed for results of round
+ * Returns: nothing
+ */
+function handleMessage(message) {
+    // TODO: Change to display on screen
+    console.log(message);
 }
