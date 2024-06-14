@@ -104,8 +104,12 @@ function capitalize(word) {
  */
 function playGame() {
     // Create buttons for player to select "Rock", "Paper", or "Scissors"
-    const body = document.querySelector("body");
-    const container = document.createElement("div");
+    const container = document.querySelector("div");
+
+    // Make sure div is empty at the start of the game. This is
+    // necessary for subsequent game play.
+    container.replaceChildren();
+
     const rockButton = document.createElement("button");
     const paperButton = document.createElement("button");
     const scissorsButton = document.createElement("button");
@@ -117,7 +121,6 @@ function playGame() {
     container.appendChild(rockButton);
     container.appendChild(paperButton);
     container.appendChild(scissorsButton);
-    body.appendChild(container);
 
     // Add event listener on buttons to call playRound with button choice
     rockButton.addEventListener("click", playRound);
