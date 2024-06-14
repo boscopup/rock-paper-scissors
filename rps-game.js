@@ -32,34 +32,6 @@ function convertToRPS(number) {
 }
 
 /**
- * Function: getHumanChoice
- * Params: None
- * Returns: string "rock", "paper", or "scissors"
- */
-function getHumanChoice() {
-    let stillGoing = true;
-    let choice = "";
-
-    while (stillGoing) {
-        // Prompt user for choice
-        choice = prompt("Please choose 'rock', 'paper', or 'scissors'");
-
-        // Convert choice to all lowercase
-        choice = choice.toLowerCase();
-
-        // Verify choice. If valid, end loop. If not valid, prompt user again.
-        if ((choice == "rock") || (choice == "paper") || (choice == "scissors") ) {
-            stillGoing = false;
-        }
-    }
-
-    // Return valid choice
-    return choice;
-}
-
-
-
-/**
  * Function: createWinLoseTieMessage
  * Params: string result (win, lose, or tie), 
  *         string winner (rock, paper, scissors), 
