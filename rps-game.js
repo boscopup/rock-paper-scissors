@@ -75,13 +75,16 @@ function capitalize(word) {
  * Returns: Nothing 
  */
 function playGame() {
-    // Create buttons for player to select "Rock", "Paper", or "Scissors"
     const container = document.querySelector("div");
 
     // Make sure div is empty at the start of the game. This is
     // necessary for subsequent game play.
     container.replaceChildren();
 
+    // Create Score bar
+    const scoreBar = document.createElement("div");
+
+    // Create buttons for player to select "Rock", "Paper", or "Scissors"
     const rockButton = document.createElement("button");
     const paperButton = document.createElement("button");
     const scissorsButton = document.createElement("button");
@@ -90,6 +93,7 @@ function playGame() {
     paperButton.textContent = "Paper";
     scissorsButton.textContent = "Scissors";
 
+    container.appendChild(scoreBar);
     container.appendChild(rockButton);
     container.appendChild(paperButton);
     container.appendChild(scissorsButton);
@@ -105,6 +109,9 @@ function playGame() {
 
     let computerScore = 0;
     let humanScore = 0;
+
+    // Initialize score bar
+    setScores();
 
     /**
      * Function: playRound, nested function inside playGame
@@ -140,7 +147,7 @@ function playGame() {
                 handleMessage(createWinLoseTieMessage("win", humanChoice, computerChoice));
             }
         }
-
+        setScores();
         if (computerScore == 5 || humanScore == 5) {
             const resultDiv = document.createElement("div");
             resultDiv.textContent = getFinalResultsMessage(computerScore, humanScore);
@@ -150,6 +157,16 @@ function playGame() {
     }
     /** END playRound function */
 
+    /**
+     * Function: setScores, nested function inside playGame
+     * Params: None
+     * Returns: nothing 
+     */
+    function setScores() {
+        scoreBar.textContent = `Computer: ${computerScore}    Human: ${humanScore}`
+        return;
+    }
+    /** END setScores function */
 
 /*
 
@@ -188,3 +205,4 @@ function getFinalResultsMessage(computerScore, humanScore) {
 
     return message;
 }
+
