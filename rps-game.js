@@ -1,3 +1,7 @@
+// Initiate the game on page load
+// Script loading in index.html is deferred until after the HTML loads
+playGame();
+
 /**
  * Function: getComputerChoice
  * Params: None
@@ -78,7 +82,8 @@ function playGame() {
     let computerScore = 0;
     let humanScore = 0;
 
-    const container = document.querySelector("div");
+    const container = document.querySelector("#container");
+    container.style = "display: flex; flex-direction: column; align-items: center;";
 
     // Make sure div is empty at the start of the game. This is
     // necessary for subsequent game play.
@@ -88,6 +93,34 @@ function playGame() {
     const scoreBar = document.createElement("div");
 
     // Create buttons for player to select "Rock", "Paper", or "Scissors"
+    const buttonDiv = document.createElement("div");
+
+    const rpsImages = document.createElement("div");
+    rpsImages.style = "display:flex; flex-direction: row; justify-content: space-evenly;";
+
+    const RPS_IMAGE_WIDTH = "75px";
+    const rpsComputer = document.createElement("img");
+    const rpsHuman = document.createElement("img");
+    rpsComputer.style.width = RPS_IMAGE_WIDTH;
+    rpsComputer.src = "./images/rock.png";
+
+    rpsHuman.style.width = RPS_IMAGE_WIDTH;
+    rpsHuman.src = "./images/rock.png";
+    rpsImages.appendChild(rpsComputer);
+    rpsImages.appendChild(rpsHuman);
+
+    const roundResults = document.createElement("div");
+    roundResults.textContent = "";
+
+    const ROUND_RESULTS_IMAGE_WIDTH = "71px";
+    const ROUND_RESULTS_IMAGE_HEIGHT = "78px";
+    const roundResultsImage = document.createElement("img");
+    roundResultsImage.style.visibility = "hidden";
+    roundResultsImage.style.width = ROUND_RESULTS_IMAGE_WIDTH;
+    roundResultsImage.style.height = ROUND_RESULTS_IMAGE_HEIGHT;
+    
+
+    buttonDiv.style = "display:flex; flex-direction: row; justify-content: center;";
     const rockButton = document.createElement("button");
     const paperButton = document.createElement("button");
     const scissorsButton = document.createElement("button");
@@ -96,10 +129,15 @@ function playGame() {
     paperButton.textContent = "Paper";
     scissorsButton.textContent = "Scissors";
 
+    buttonDiv.appendChild(rockButton);
+    buttonDiv.appendChild(paperButton);
+    buttonDiv.appendChild(scissorsButton);
+
     container.appendChild(scoreBar);
-    container.appendChild(rockButton);
-    container.appendChild(paperButton);
-    container.appendChild(scissorsButton);
+    container.appendChild(rpsImages);
+    container.appendChild(roundResults);
+    container.appendChild(roundResultsImage);
+    container.appendChild(buttonDiv);
 
     // Add event listener on buttons to call playRound with button choice
     rockButton.addEventListener("click", playRound);
