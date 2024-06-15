@@ -36,34 +36,6 @@ function convertToRPS(number) {
 }
 
 /**
- * Function: createWinLoseTieMessage
- * Params: string result (win, lose, or tie), 
- *         string winner (rock, paper, scissors), 
- *         string loser (rock, paper, scissors)
- * Returns: string message of the format "You <win|lose|tie>! <<winner> beats <loser>|<winner> ties with <winner>>."
- * 
- */
-function createWinLoseTieMessage(result, winner, loser) {
-    let message = "";
-
-    switch (result) {
-        // If win, return, "You win! <winner capitalized> beats <loser>."
-        // If lose, return, "You lose! <winner capitalized> beats <loser>."
-        case "win":
-        case "lose":
-            message = `You ${result}! ${capitalize(winner)} beats ${loser}.`;
-            break;
-        // If tie, return, "You tie! <winner capitalized> ties with <winner>."
-        case "tie":
-            message = `You tie! ${capitalize(winner)} ties with ${loser}.`;
-            break;
-    }
-
-    // Return the message
-    return message;
-}
-
-/**
  * Function: capitalize
  * Params: string word
  * Returns: the same string but with the first letter capitalized
@@ -165,9 +137,34 @@ function playGame() {
 
         let computerChoice = getComputerChoice();
 
+        // Display choice images
+        switch (computerChoice) {
+            case "rock":
+                rpsComputer.src = "./images/rock.png";
+                break;
+            case "paper":
+                rpsComputer.src = "./images/paper.png";
+                break;
+            case "scissors":
+                rpsComputer.src = "./images/scissors.png";
+                break;
+        }
+
+        switch (humanChoice) {
+            case "rock":
+                rpsHuman.src = "./images/rock.png";
+                break;
+            case "paper":
+                rpsHuman.src = "./images/paper.png";
+                break;
+            case "scissors":
+                rpsHuman.src = "./images/scissors.png";
+                break;
+        }
+
         // If they are the same, the game is a tie
         if (computerChoice == humanChoice) {
-            handleMessage(createWinLoseTieMessage("tie", computerChoice, humanChoice));
+            createWinLoseTieMessage("tie", computerChoice, humanChoice);
         } else {
             // If computer wins, send a "lose" message, since the human loses
             // Otherwise, the human wins, so send a "win" message.
@@ -175,10 +172,10 @@ function playGame() {
                 ((computerChoice == "paper") && (humanChoice == "rock")) ||
                 ((computerChoice == "scissors") && (humanChoice == "paper"))) {
                 computerScore++;
-                handleMessage(createWinLoseTieMessage("lose", computerChoice, humanChoice));
+                createWinLoseTieMessage("lose", computerChoice, humanChoice);
             } else {
                 humanScore++;
-                handleMessage(createWinLoseTieMessage("win", humanChoice, computerChoice));
+                createWinLoseTieMessage("win", humanChoice, computerChoice);
             }
         }
         setScores();
@@ -207,23 +204,55 @@ function playGame() {
     }
     /** END setScores function */
 
-/*
+    /**
+     * Function: createWinLoseTieMessage, nested function inside playGame
+     * Params: string result (win, lose, or tie), 
+     *         string winner (rock, paper, scissors), 
+     *         string loser (rock, paper, scissors)
+     * Returns: string message of the format "You <win|lose|tie>! <<winner> beats <loser>|<winner> ties with <winner>>."
+     * 
+     */
+    function createWinLoseTieMessage(result, winner, loser) {
+        let message = "";
 
+        switch (result) {
+            // If win, return, "You win! <winner capitalized> beats <loser>."
+            // If lose, return, "You lose! <winner capitalized> beats <loser>."
+            case "win":
+            case "lose":
+                message = `You ${result}! ${capitalize(winner)} beats ${loser}.`;
+                break;
+            // If tie, return, "You tie! <winner capitalized> ties with <winner>."
+            case "tie":
+                message = `You tie! ${capitalize(winner)} ties with ${loser}.`;
+                break;
+        }
 
-    // Print message
-    console.log(message);
-*/
-    return;
-}
+        if (winner != loser) {
+            switch (winner) {
+                case "rock":
+                    roundResultsImage.src = "./images/RockBeatsScissors.png";
+                    break;
+                case "paper":
+                    roundResultsImage.src = "./images/PaperBeatsRock.png";
+                    break;
+                case "scissors":
+                    roundResultsImage.src = "./images/ScissorsBeatsPaper.png";
+                    break;
+            }
+            roundResultsImage.style.visibility = "visible";    
+        } else {
+            // Tied, so no image
+            roundResultsImage.style.visibility = "hidden";
+        }
 
-/**
- * Function: handleMessage
- * Params: message - text to be displayed for results of round
- * Returns: nothing
- */
-function handleMessage(message) {
-    // TODO: Change to display on screen
-    console.log(message);
+        // Return the message
+        roundResults.textContent = message;
+        return;
+    }
+    /** END createWinLoseTieMessage function */
+
+    return; // playGame
 }
 
 /**
