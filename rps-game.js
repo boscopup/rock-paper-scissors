@@ -55,7 +55,8 @@ function playGame() {
     let humanScore = 0;
 
     const container = document.querySelector("#container");
-    container.style = "display: flex; flex-direction: column; align-items: center;";
+    container.style = "display: flex; flex-direction: column; align-items: center; border: 2px solid black;" +
+            "max-width: 500px; margin: auto;";
 
     // Make sure div is empty at the start of the game. This is
     // necessary for subsequent game play.
@@ -63,6 +64,7 @@ function playGame() {
 
     // Create Score bar
     const scoreBar = document.createElement("div");
+    scoreBar.style = "font-size: 36px; background-color: rgba(245, 39, 84, 0.5); width: 100%; text-align: center;"
 
     // Create buttons for player to select "Rock", "Paper", or "Scissors"
     const buttonDiv = document.createElement("div");
@@ -93,9 +95,14 @@ function playGame() {
     
 
     buttonDiv.style = "display:flex; flex-direction: row; justify-content: center;";
+    const BUTTON_STYLE = "background-color: blue; border: 1px solid blue; color: white;" +
+        "border-radius: 8px; margin: 10px; padding: 8px; font-size: 16px;";
     const rockButton = document.createElement("button");
+    rockButton.style = BUTTON_STYLE;
     const paperButton = document.createElement("button");
+    paperButton.style = BUTTON_STYLE;
     const scissorsButton = document.createElement("button");
+    scissorsButton.style = BUTTON_STYLE;
 
     rockButton.textContent = "Rock";
     paperButton.textContent = "Paper";
