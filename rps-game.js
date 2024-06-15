@@ -187,14 +187,16 @@ function playGame() {
         }
         setScores();
         if (computerScore == 5 || humanScore == 5) {
-            const resultDiv = document.createElement("div");
-            resultDiv.textContent = getFinalResultsMessage(computerScore, humanScore);
+            scoreBar.textContent = getFinalResultsMessage(computerScore, humanScore);
+            scoreBar.style.fontSize = "32px";
 
+            // Replace rock, paper, scissors buttons with new game button
             const newGameButton = document.createElement("button");
             newGameButton.textContent = "New Game";
+            newGameButton.style = BUTTON_STYLE;
             newGameButton.addEventListener("click", playGame);
 
-            container.replaceChildren(resultDiv, newGameButton);
+            buttonDiv.replaceChildren(newGameButton);
         }
         return;
     }
